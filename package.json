@@ -1,0 +1,23 @@
+{
+  "name": "OOPforTeam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ladystephani/OOPforTeam.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ladystephani/OOPforTeam/issues"
+  },
+  "homepage": "https://github.com/ladystephani/OOPforTeam#readme",
+  "dependencies": {
+    "jest": "^27.4.3"
+  }
+}
