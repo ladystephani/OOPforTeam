@@ -1,5 +1,18 @@
 const fs = require("fs");
 
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
+// when user already sent in info
+const company = `Bachelor's`;
+const manager = new Manager("Dave", "dave@gmail.com", 1);
+console.log(`${manager.name}`);
+const engineer = new Engineer("Adam", "adam@gmail.com", 2);
+console.log(`${engineer.name}`);
+const intern = new Intern("Scott", "scott@gmail.com", 3);
+console.log(`${intern.name}`);
+
 const generateHtml = () => {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -15,22 +28,41 @@ const generateHtml = () => {
 <body>
     <header>
         <div class="container flex-row justify-space-between align-center py-3">
-            <h1 class="page-title text-secondary bg-dark py-2 px-3">Company Name</h1>
+            <h1 class="page-title text-secondary bg-dark py-2 px-3">${company}</h1>
         </div>
     </header>
     <main class="container my-5">
+        <h2 class="page-title flex-row text-dark bg-primary py-2 px-3">Team info</h2>
         <div class="container flex-row justify-space-between align-center py-3">
-            <h4 class="page-title text-secondary bg-dark py-2 px-3">Manager</h4>
+            <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">Manager</h4>
+            <p class="page-paragraph flex-row text-dark py-2 px-3">
+            ${manager.name}
+            </p>
+            <p class="page-paragraph flex-row text-dark py-2 px-3">
+            ${manager.email}
+            </p>
         </div>
         <div class="container flex-row justify-space-between align-center py-3">
-            <h4 class="page-title text-secondary bg-dark py-2 px-3">Engineer</h4>
+            <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">Engineer</h4>
+            <p class="page-paragraph flex-row text-dark py-2 px-3">
+            ${engineer.name}
+            </p>
+            <p class="page-paragraph flex-row text-dark py-2 px-3">
+            ${engineer.email}
+            </p>
         </div>
         <div class="container flex-row justify-space-between align-center py-3">
-            <h4 class="page-title text-secondary bg-dark py-2 px-3">Intern</h4>
+            <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">Intern</h4>
+            <p class="page-paragraph flex-row text-dark py-2 px-3">
+            ${intern.name}
+            </p>
+            <div class="page-paragraph flex-row text-dark py-2 px-3">
+            ${intern.email}
+            </p>
         </div>
     </main>
     <footer class="container text-center py-3">
-        <h3 class="text-dark">&copy; ${new Date().getFullYear()} by lady</h3>
+        <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ladystephani</h3>
     </footer>
 </body>
 </html>
