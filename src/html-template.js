@@ -1,17 +1,61 @@
-const Manager = require("../lib/Manager");
-const Engineer = require("../lib/Engineer");
-const Intern = require("../lib/Intern");
+const generateManager = (manager) => {
+  return `
+    <div class="container flex-row justify-space-between align-center py-3">
+    <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">${manager.name}</h4>
+    <p class="page-paragraph flex-row text-dark py-2 px-3">
+    Manager
+    </p>
+    <p class="page-paragraph flex-row text-dark py-2 px-3">
+    Email: ${manager.email}
+    </p>
+    <p class="page-paragraph flex-row text-dark py-2 px-3">
+    ID: ${manager.id}
+    </p>
+    <p class="page-paragraph flex-row text-dark py-2 px-3">
+    ${manager.officeNumber}
+    </p>
+    </div>`;
+};
 
-// data in place of what user sends in (for testing)
-const company = `Bachelor's`;
-const manager = new Manager("Dave", "dave@gmail.com", 1);
-console.log(`${manager.name}`);
-const engineer = new Engineer("Adam", "adam@gmail.com", 2);
-console.log(`${engineer.name}`);
-const intern = new Intern("Scott", "scott@gmail.com", 3);
-console.log(`${intern.name}`);
+const generateEngineer = (engineer) => {
+  return `
+      <div class="container flex-row justify-space-between align-center py-3">
+      <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">${engineer.name}</h4>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      engineer
+      </p>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      Email: ${engineer.email}
+      </p>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      ID: ${engineer.id}
+      </p>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      ${engineer.github}
+      </p>
+      </div>`;
+};
 
-const generateHtml = (userEnteredData) => {
+const generateIntern = (intern) => {
+  return `
+      <div class="container flex-row justify-space-between align-center py-3">
+      <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">${intern.name}</h4>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      engineer
+      </p>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      Email: ${intern.email}
+      </p>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      ID: ${intern.id}
+      </p>
+      <p class="page-paragraph flex-row text-dark py-2 px-3">
+      ${intern.school}
+      </p>
+      </div>`;
+};
+
+const page = (employeeSections) => {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,38 +70,11 @@ const generateHtml = (userEnteredData) => {
 <body>
     <header>
         <div class="container flex-row justify-space-between align-center py-3">
-            <h1 class="page-title text-secondary bg-dark py-2 px-3">${company}</h1>
+            <h1 class="page-title text-secondary bg-dark py-2 px-3">Team profile</h1>
         </div>
     </header>
     <main class="container my-5">
-        <h2 class="page-title flex-row text-dark bg-primary py-2 px-3">Team info</h2>
-        <div class="container flex-row justify-space-between align-center py-3">
-            <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">Manager</h4>
-            <p class="page-paragraph flex-row text-dark py-2 px-3">
-            ${manager.name}
-            </p>
-            <p class="page-paragraph flex-row text-dark py-2 px-3">
-            ${manager.email}
-            </p>
-        </div>
-        <div class="container flex-row justify-space-between align-center py-3">
-            <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">Engineer</h4>
-            <p class="page-paragraph flex-row text-dark py-2 px-3">
-            ${engineer.name}
-            </p>
-            <p class="page-paragraph flex-row text-dark py-2 px-3">
-            ${engineer.email}
-            </p>
-        </div>
-        <div class="container flex-row justify-space-between align-center py-3">
-            <h4 class="page-title flex-row text-dark bg-primary py-2 px-3">Intern</h4>
-            <p class="page-paragraph flex-row text-dark py-2 px-3">
-            ${intern.name}
-            </p>
-            <div class="page-paragraph flex-row text-dark py-2 px-3">
-            ${intern.email}
-            </p>
-        </div>
+        ${employeeSections}
     </main>
     <footer class="container text-center py-3">
         <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ladystephani</h3>
@@ -66,3 +83,33 @@ const generateHtml = (userEnteredData) => {
 </html>
 `;
 };
+
+//pass in teamArr here
+const generateHtml = (userEnteredData) => {
+  sectionsArr = [];
+
+  for (let i = 0; i < userEnteredData.length; i++) {
+    //userEnteredData is expected as teamArr - array of classes
+    //the way to identify the element in teamArr is by getRole()
+    const employee = userEnteredData[i];
+    const role = employee.getRole();
+
+    if (role === "Manager") {
+      const managerSection = generateManager(employee);
+      sectionsArr.push(managerSection);
+    }
+    if (role === "Engineer") {
+      const engineerSection = generateEngineer(employee);
+      sectionsArr.push(engineerSection);
+    }
+    if (role === "Intern") {
+      const internSection = generateIntern(employee);
+      sectionsArr.push(internSection);
+    }
+  }
+
+  const employeeSections = sectionsArr.join("");
+  return page(employeeSections);
+};
+
+module.exports = generateHtml;
